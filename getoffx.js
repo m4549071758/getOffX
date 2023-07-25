@@ -12,11 +12,20 @@
 (function () {
   function returnBirdFavicon() {
     const xFavicon = document.querySelector('link[rel="shortcut icon"]').href="favicon2.ico";
-    const newFaviconURL = ""
+    const newFaviconURL = "https://github.com/m4549071758/getOffX/blob/bc17e6d551dfa32e63ae683f470dad2b74ac599c/twitter.png"
     if (shortcutIconElement) {
       // 新しいFaviconのURLを設定する
       shortcutIconElement.href = newFaviconURL;
-  }
+      //headの最初のlinkとして再挿入
+      const head = document.head || document.getElementsByTagName('head')[0];
+      head.appendChild(shortcutIconElement.cloneNode(true));
+          // 以前のFaviconの要素を削除する
+      head.removeChild(shortcutIconElement);
+    } else {
+      // もしshortcutIconElementが見つからなかった場合のエラーメッセージ
+      console.error("shortcut icon要素がないよ");
+    }
+  };
 
   function returnBlueBird() {
     let svgElements = Array.from(document.querySelectorAll('svg'));
@@ -41,8 +50,9 @@
         }
       });
     });
-  }
+  };
 
+  returnBirdFavicon();
   returnBlueBird();
   //動的ページ用のやつ
   let observer = new MutationObserver(returnBlueBird);
